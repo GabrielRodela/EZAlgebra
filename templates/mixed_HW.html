@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4x3 Mixed HW Grid</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body, h1, h2 {
+        font-family: "Raleway", Arial, sans-serif;
+    }
+    .w3-content {
+        max-width: 1500px;
+        margin: auto;
+    }
+    .w3-round-xxlarge {
+        text-align: center;
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+        padding: 15px;
+    }
+    .grid-item {
+        background-color: #f0f0f0;
+        padding: 20px;
+        text-align: center;
+    }
+    .answer-key {
+        background-color: #f8f9fa;
+        border-top: 1px solid #e0e0e0;
+        padding: 20px;
+        text-align: center;
+    }
+    footer {
+        padding: 64px;
+        background-color: #f0f0f0;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<header class="w3-round-xxlarge w3-grey">
+    <h1>Mixed HW Problems</h1>
+</header>
+
+<div class="w3-content">
+    <div class="grid-container">
+        <div class="grid-item"><h2>1) {{q1}}</h2></div>
+        <div class="grid-item"><h2>2) {{q2}}</h2></div>
+        <div class="grid-item"><h2>3) {{q3}}</h2></div>
+        <div class="grid-item"><h2>4) {{q4}}</h2></div>
+        <div class="grid-item"><h2>5) {{q5}}</h2></div>
+        <div class="grid-item"><h2>6) {{q6}}</h2></div>
+        <div class="grid-item"><h2>7) {{q7}}</h2></div>
+        <div class="grid-item"><h2>8) {{q8}}</h2></div>
+        <div class="grid-item"><h2>9) {{q9}}</h2></div>
+        <div class="grid-item"><h2>10) {{q10}}</h2></div>
+        <div class="grid-item"><h2>11) {{q11}}</h2></div>
+        <div class="grid-item"><h2>12) {{q12}}</h2></div>
+    </div>
+
+    <div class="answer-key">
+        <h2>Answer Key</h2>
+        <p>1) {{a1}}, 2) {{a2}}, 3) {{a3}}</p>
+        <p>4) {{a4}}, 5) {{a5}}, 6) {{a6}}</p>
+        <p>7) {{a7}}, 8) {{a8}}, 9) {{a9}}</p>
+        <p>10) {{a10}}, 11) {{a11}}, 12) {{a12}}</p>
+    </div>
+</div>
+
+<footer class="w3-container w3-padding-32 w3-light-grey w3-center w3-large">
+    <p>
+        Created for CPSC 491 by Gabriel Rodela
+    <p>
+    <p>
+        Go to
+        <a href="/" class="w3-hover-text-green">Home</a>
+    <p>
+<footer>
+
+</body>
+</html>
