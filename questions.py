@@ -3,7 +3,8 @@ from fractions import Fraction
 
 names = ["Robert", "John", "Billy", "Thomas", "Kristen", "Otto", "Lucy", "Trent", "Kelly", "Luis", "Brent", "Samantha", "Fernando", "Gabriel", "Mike", "Brandon", "Briana", "Diana"]
 
-
+#@rand_func_select
+#@mixed_func_select
 def simple_addition():
 
     #Generates a simple addition problem
@@ -225,7 +226,7 @@ def pythagorean_theorem():
     #Generates a simple pythagorean theorem problem (#33)
     x = random.randint(2, 9)
     y = random.randint(2, 9)
-    q = (f"(x^2)+(y^2) = {(x**2)+(y**2)}; where y = {y}")
+    q = (f"x\N{SUPERSCRIPT TWO}+y\N{SUPERSCRIPT TWO}={(x**2)+(y**2)}; where y = {y}")
     ans = x
     
     return [q, ans]
@@ -377,7 +378,7 @@ def fraction_division():
 
 def factoring_trinomials():
 
-   #Generates a trinomial factoring problem (#49)
+   #Generates a trinomial factoring problem (#50)
     num1 = 0
     while (num1 == 0):
         num1 = random.randint(-9, 9)
@@ -389,15 +390,15 @@ def factoring_trinomials():
         num1 = num2 
         num2 = temp
     if (num1 > 0 and num2 > 0):
-        q = (f"Factor: x^2+{num1+num2}x+{num1*num2}")
+        q = (f"Factor: x\N{SUPERSCRIPT TWO}+{num1+num2}x+{num1*num2}")
         ans = (f"(x+{num1})(x+{num2})")
     elif (num1 < 0 and num2 < 0):
-        q = (f"Factor: x^2{num1+num2}x+{num1*num2}")
+        q = (f"Factor: x\N{SUPERSCRIPT TWO}{num1+num2}x+{num1*num2}")
         ans = (f"(x{num1})(x{num2})")
     elif ((num1+num2) < 0):
-        q = (f"Factor: x^2{num1+num2}x{num1*num2}")
+        q = (f"Factor: x\N{SUPERSCRIPT TWO}{num1+num2}x{num1*num2}")
         ans = (f"(x+{num1})(x{num2})")
     else:
-        q = (f"Factor: x^2+{num1+num2}x{num1*num2}")
+        q = (f"Factor: x\N{SUPERSCRIPT TWO}+{num1+num2}x{num1*num2}")
         ans = (f"(x+{num1})(x{num2})")
     return [q, ans, num1, num2]
