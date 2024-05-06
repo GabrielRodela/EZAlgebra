@@ -402,3 +402,16 @@ def factoring_trinomials():
         q = (f"Factor: x\N{SUPERSCRIPT TWO}+{num1+num2}x{num1*num2}")
         ans = (f"(x+{num1})(x{num2})")
     return [q, ans, num1, num2]
+
+def complete_the_square():
+
+   #Generates a complete the square problem (#51)
+    num1 = 0
+    while (num1 == 0 or num1%2 != 0):
+        num1 = random.randint(-12, 12)
+    if (num1 > 0):
+        q = (f"What value of c completes the square for: x\N{SUPERSCRIPT TWO}+{num1}x+c ?")
+    elif (num1 < 0):
+        q = (f"What value of c completes the square for: x\N{SUPERSCRIPT TWO}{num1}x+c ?")
+    ans = int((num1/2)**2)
+    return [q, ans]
