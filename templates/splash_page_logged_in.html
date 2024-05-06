@@ -26,15 +26,23 @@
         <div class="w3-bar w3-light-grey">
             <a href="/login" class="w3-bar-item w3-button">Logged in as: {{usr}}</a>
             <a href="/logout" class="w3-bar-item w3-button w3-right">Logout</a>
-          </div>
+        </div>
         <header class="w3-panel w3-center w3-opacity" style="padding: 128px 16px">
             <h1 class="w3-xlarge">Welcome to</h1>
             <h1>EZ Algebra!</h1>
             <h1 class="w3-large">I created this site to help my Math students practice questions while they are at home. Major topics include Algebra, Geometry, and Mathematical Reasoning. Click on one of the links below to get started!</h1>
             <div class="w3-padding-32">
                 <div class="w3-bar w3-border">
-                    <a href="/Single_Topic_Practice" class="w3-bar-item w3-button">Single Topic Practice</a>
                     <a href="/Random_Practice" class="w3-bar-item w3-button">Random Practice</a>
+                    <div class="w3-dropdown-hover">
+                        <button class="w3-button">Single Topic Practice</button>
+                        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                            <a href="/Single_Topic_Practice/Algebra_I" class="w3-bar-item w3-button">Up to Algebra I</a>
+                            <a href="/Single_Topic_Practice/Geometry" class="w3-bar-item w3-button">Geometry</a>
+                            <a href="/Single_Topic_Practice/Algebra_II" class="w3-bar-item w3-button">Algebra II+</a>
+                            <a href="/Single_Topic_Practice/Pipefitter_prep" class="w3-bar-item w3-button">Pipefitters Exam Prep</a>
+                        </div>
+                    </div>
                     <a href="/Mixed_HW" class="w3-bar-item w3-button">HW Generator</a>
                     <a href="/Guided_Practice" class="w3-bar-item w3-button">Guided Practice</a>
                 </div>
