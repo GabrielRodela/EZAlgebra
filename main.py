@@ -39,14 +39,28 @@ db = SQLAlchemy(app)
 #db.init_app(app)
 
 
-class users(db.Model):
-    _id = db.Column("id", db.Integer, primary_key=True)
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(70))
     email = db.Column(db.String(70))
+    questions = db.relationship("Questions", backref="users")
 
     def __init__(self, name, email):
         self.name = name
         self.email = email
+
+class Questions(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey(Users.id))
+    qnum = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    question = db.Column(db.String(200))
+    response = db.Column(db.String(20))
+    correct = db.Column(db.String(20))
+
+    def __init__(self, user_id, question, response, correct):
+        self.user_id = user_id
+        self.question = question
+        self.response = response
+        self.correct = correct
 
 
 
@@ -64,11 +78,11 @@ def login():
         user = request.form["name"]
         session["user"] = user
 
-        found_user = users.query.filter_by(name=user).first()
+        found_user = Users.query.filter_by(name=user).first()
         if found_user:
             session["email"] = found_user.email
         else:
-            usr = users(user, "")
+            usr = Users(user, "")
             db.session.add(usr)
             db.session.commit()
         return redirect(url_for("splash"))
@@ -86,7 +100,7 @@ def user():
         if request.method == "POST":
             email = request.form["email"]
             session["email"] = email
-            found_user = users.query.filter_by(name=user).first()
+            found_user = Users.query.filter_by(name=user).first()
             found_user.email = email
             db.session.commit()
         else:
@@ -99,7 +113,7 @@ def user():
 
 @app.route('/view')
 def view():
-    return render_template("view.html", values=users.query.all())
+    return render_template("view.html", values=Users.query.all())
 
     
 @app.route('/logout')
@@ -113,51 +127,55 @@ def logout():
 
 @app.route('/Single_Topic_Practice/Algebra_I', methods=['GET'])
 def algebra_1():
-    if "user" in session:
-        user = session["user"]
-    else:
-        user = "Guest"
     q = [random.choice(algebra_select)()]
-    return render_template("algebra_I.html", q1 = q[0][0], a1 = q[0][1], usr = user)
+    u = grab_user(q)
+    return render_template("algebra_I.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Single_Topic_Practice/Algebra_I/One_step', methods=['GET'])
 def algebra_1a():
     q = [questions.algebra_1_step()]
-    return render_template("algebra_I.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("algebra_I.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Single_Topic_Practice/Algebra_I/Two_step', methods=['GET'])
 def algebra_1b():
     q = [questions.algebra_2_step()]
-    return render_template("algebra_I.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("algebra_I.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Single_Topic_Practice/Algebra_I/Multi_variable', methods=['GET'])
 def algebra_1c():
     q = [questions.algebra_2_step_2_var()]
-    return render_template("algebra_I.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("algebra_I.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 
 
 @app.route('/Single_Topic_Practice/Geometry', methods=['GET'])
 def geometry():
     q = [random.choice(geometry_select)()]
-    return render_template("geometry.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("geometry.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Single_Topic_Practice/Geometry/Pythagorean_theorem', methods=['GET'])
 def geometry_a():
     q = [questions.pythagorean_theorem()]
-    return render_template("geometry.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("geometry.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Single_Topic_Practice/Geometry/Volume', methods=['GET'])
 def geometry_b():
     choices = [questions.volume_box, questions.volume_cube]
     q = [random.choice(choices)()]
-    return render_template("geometry.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("geometry.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Single_Topic_Practice/Geometry/Surface_area', methods=['GET'])
 def geometry_c():
     choices = [questions.surface_area_t1, questions.surface_area_t2]
     q = [random.choice(choices)()]
-    return render_template("geometry.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("geometry.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 
 
@@ -165,17 +183,20 @@ def geometry_c():
 @app.route('/Single_Topic_Practice/Algebra_II', methods=['GET'])
 def algebra_2():
     q = [random.choice(algebra_II_select)()]
-    return render_template("algebra_II.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("algebra_II.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Single_Topic_Practice/Algebra_II/Factoring_trinomials', methods=['GET'])
 def algebra_2a():
     q = [questions.factoring_trinomials()]
-    return render_template("algebra_II.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("algebra_II.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Single_Topic_Practice/Algebra_II/Completing_the_square', methods=['GET'])
 def algebra_2b():
     q = [questions.complete_the_square()]
-    return render_template("algebra_II.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("algebra_II.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 
 
@@ -183,23 +204,27 @@ def algebra_2b():
 @app.route('/Single_Topic_Practice/Pipefitter_prep', methods=['GET'])
 def pipefitter_prep():
     q = [random.choice(rand_func_select)()]
-    return render_template("pipefitter_prep.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("pipefitter_prep.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Single_Topic_Practice/Pipefitter_prep/Fractions', methods=['GET'])
 def pipefitter_prep_a():
     q = [random.choice(fractions_select)()]
-    return render_template("pipefitter_prep.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("pipefitter_prep.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Single_Topic_Practice/Pipefitter_prep/Percents', methods=['GET'])
 def pipefitter_prep_b():
     q = [random.choice(percent_probs_select)()]
-    return render_template("pipefitter_prep.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("pipefitter_prep.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Single_Topic_Practice/Pipefitter_prep/Geometry', methods=['GET'])
 def pipefitter_prep_c():
     choices = [questions.hypoteneuse, questions.pythagorean_theorem]
     q = [random.choice(choices)()]
-    return render_template("pipefitter_prep.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("pipefitter_prep.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 
 
@@ -235,14 +260,38 @@ def link4():
     return render_template("Guided_Practice.html", q1 = q[0][0], a1 = q[0][1], f1 = q[0][2], f2 = q[0][3], factors = factors)
 
 
+def grab_user(q):
+    if "user" in session:
+       user = session["user"]
+       found_user = Users.query.filter_by(name=user).first()
+       dbq = Questions(user_id = found_user.id, question = q[0][0], response = "", correct = q[0][1])
+       db.session.add(dbq)
+       db.session.commit()
+       db.session.refresh(dbq)
+       qid = dbq.qnum
+    else:
+        user = "Guest"
+        qid = -1
+    return [user, qid]
+
+
 @app.route('/check_answer', methods=['POST'])
 def check_answer():
     data = request.get_json()
     user_answer = str(data['answer'])
     correct_answer = str(data['correct_answer'])
+    qid = str(data['qid'])
     if user_answer == correct_answer:
+        if qid != "-1":
+            found_q = Questions.query.filter_by(qnum=int(qid)).first()
+            found_q.response = "CORRECT"
+            db.session.commit()
         result = "Correct!\n Refresh to keep practicing!"
     else:
+        if qid != "-1":
+            found_q = Questions.query.filter_by(qnum=int(qid)).first()
+            found_q.response = user_answer
+            db.session.commit()
         result = "Incorrect, try again!"
     return jsonify({'result': result})
 

@@ -14,12 +14,13 @@
             event.preventDefault();
             var answer = document.getElementById("answer").value;
             var correctAnswer = document.getElementById("correct_answer").value;
+            var qid = document.getElementById("qid").value;
             fetch('/check_answer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({answer: answer, correct_answer: correctAnswer})
+                body: JSON.stringify({answer: answer, correct_answer: correctAnswer, qid: qid})
             })
             .then(response => response.json())
             .then(data => {
@@ -98,15 +99,16 @@
             <label>Answer:</label>
             <input type="text" id="answer">
             <input type="hidden" id="correct_answer" value="{{a1}}">
+            <input type="hidden" id="qid" value="{{qid}}">
             <button class="w3-btn w3-round-large w3-blue" onclick="submitAnswer()">Submit</button>
             <p id="result"></p>
     </div>
-    
 </div>
-<details>
-  <summary center>Or click here for the answer</summary>
- "{{a1}}"
-</details>
+
+{% if usr == "Guest" %}
+<details>    <summary center>Or click here for the answer</summary>   "{{a1}}"</details>
+{% endif %}
+
 
 <footer class="w3-container w3-padding-32 w3-light-grey w3-center w3-large">
     <p>
