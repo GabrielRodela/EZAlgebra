@@ -58,16 +58,11 @@
 
 <div class="w3-content">
     <div class="grid-container">
-        <div class="grid-item"><h2>Current list of users:</h2></div>
+        <div class="grid-item"><h2>Current list of question objects in DB:</h2></div>
     </div>
     <div class="grid-container">
-        {% for x in people %}
-            <p>ID: {{x.id}}, Name: {{x.name}}, Email: {{x.email}}</p>
-            {% for y in qs %}
-                {% if x.id == y.user_id %}
-                <p>ID: {{y.user_id}}, Problem: {{y.question}}, Response: {{y.response}}, Correct Answer: {{y.correct}}</p>
-                {% endif %}
-            {% endfor%}
+        {% for x in qs %}
+            <p>ID: {{x.user_id}}, Question: {{x.question}}, Response: {{x.response}}, Correct Answer: {{x.correct}} </p>
         {% endfor%}
     </div>
     
