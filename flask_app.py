@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash, jsonify
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
+from socket import gethostname
 import random
 import questions
 
@@ -298,4 +299,6 @@ def check_answer():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    if 'liveconsole' not in gethostname():
+        app.run()
+    #app.run(debug=True)
