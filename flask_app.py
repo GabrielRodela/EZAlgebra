@@ -37,7 +37,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.permanent_session_lifetime = timedelta(minutes=1)
 
 db = SQLAlchemy(app)
-#db.init_app(app)
 
 
 class Users(db.Model):
@@ -114,7 +113,7 @@ def user():
 
 @app.route('/view')
 def view():
-    return render_template("view.html", values=Users.query.all())
+    return render_template("view.html", people=Users.query.all(), qs=Questions.query.all())
 
     
 @app.route('/logout')
