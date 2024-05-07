@@ -231,7 +231,8 @@ def pipefitter_prep_c():
 @app.route('/Random_Practice', methods=['GET'])
 def link2():
     q = [random.choice(rand_func_select)()]
-    return render_template("Random_Practice.html", q1 = q[0][0], a1 = q[0][1])
+    u = grab_user(q)
+    return render_template("Random_Practice.html", q1 = q[0][0], a1 = q[0][1], usr = u[0], qid = u[1])
 
 @app.route('/Mixed_HW')
 def link3():
@@ -251,13 +252,14 @@ def link3():
 @app.route('/Guided_Practice', methods=['GET'])
 def link4():
     q = [questions.factoring_trinomials()]
+    u = grab_user(q)
     c = abs(q[0][2]*q[0][3])
     factors = []
     for i in range(1,c//2+1):
         if c%i == 0:
             factors.append(i)
     factors.append(c)
-    return render_template("Guided_Practice.html", q1 = q[0][0], a1 = q[0][1], f1 = q[0][2], f2 = q[0][3], factors = factors)
+    return render_template("Guided_Practice.html", q1 = q[0][0], a1 = q[0][1], f1 = q[0][2], f2 = q[0][3], factors = factors, usr = u[0], qid = u[1])
 
 
 def grab_user(q):
