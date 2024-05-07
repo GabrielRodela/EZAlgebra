@@ -31,7 +31,7 @@ algebra_II_select = [questions.factoring_trinomials, questions.complete_the_squa
 
 app = Flask(__name__)
 app.secret_key = "secret_key"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://fcvlpstlhpcpwo:55022992b506b70451555186dc2ccdaac66126c30a0c9281bb6536e98cd7065a@ec2-52-72-109-141.compute-1.amazonaws.com:5432/d2bhvjutpiqrvn'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://qnpvlqxbecvcet:be4c5f55232d577b93a92a235f261add93ff092e730257d5367d668529816385@ec2-52-72-109-141.compute-1.amazonaws.com:5432/d9e3lq1rb1q62t'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.permanent_session_lifetime = timedelta(minutes=1)
 
