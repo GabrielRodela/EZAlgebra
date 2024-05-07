@@ -61,11 +61,13 @@
         <div class="grid-item"><h2>Current list of users:</h2></div>
     </div>
     <div class="grid-container">
-        {% for item in people %}
-            <p>ID: {{item.id}}, Name: {{item.name}}, Email: {{item.email}}</p>
-        {% endfor%}
-        {% for item in qs %}
-            <p>ID: {{item.user_id}}, Problem: {{item.question}}, Response: {{item.response}}, Correct Answer: {{item.correct}}</p>
+        {% for x in people %}
+            <p>ID: {{x.id}}, Name: {{x.name}}, Email: {{x.email}}</p>
+            {% for y in qs %}
+                {% if x.id == y.user_id %}
+                <p>ID: {{y.user_id}}, Problem: {{y.question}}, Response: {{y.response}}, Correct Answer: {{y.correct}}</p>
+                {% endif %}
+            {% endfor%}
         {% endfor%}
     </div>
     
