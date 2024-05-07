@@ -252,13 +252,13 @@ def link3():
 @app.route('/Guided_Practice', methods=['GET'])
 def link4():
     q = [questions.factoring_trinomials()]
-    u = grab_user(q)
     c = abs(q[0][2]*q[0][3])
     factors = []
     for i in range(1,c//2+1):
         if c%i == 0:
             factors.append(i)
     factors.append(c)
+    u = grab_user(q)
     return render_template("Guided_Practice.html", q1 = q[0][0], a1 = q[0][1], f1 = q[0][2], f2 = q[0][3], factors = factors, usr = u[0], qid = u[1])
 
 
