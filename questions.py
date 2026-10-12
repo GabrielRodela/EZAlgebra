@@ -251,8 +251,8 @@ def surface_area_t1():
     num1 = random.randint(2, 6)*2
     num2 = random.randint(2, 6)*2
     area = num1*num2
-    q = (f"How many 2 sq. in. tiles will fit on a rectangle that is {num1} in wide by {num2} in long?")
-    ans = (area/4)
+    q = (f"How many 2 in-by-2 in tiles (4 in\N{SUPERSCRIPT TWO} each) will fit on a rectangle that is {num1} in wide by {num2} in long?")
+    ans = area // 4
 
     return [q, ans]
 
